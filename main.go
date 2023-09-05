@@ -4,16 +4,6 @@ import (
 	"fmt"
 )
 
-var tests = [][]string{
-	{"B", "B", "D", "A", "D", "E", "F"},
-	{"B", "X", "C", "D", "D", "J", "K"},
-	{"H", "Y", "I", "3", "D", "D", "3"},
-	{"R", "7", "O", "Ñ", "G", "D", "2"},
-	{"W", "N", "S", "P", "E", "0", "D"},
-	{"A", "9", "C", "D", "D", "E", "F"},
-	{"B", "X", "D", "D", "D", "J", "K"},
-}
-
 const (
 	Horizontal = "--"
 	Vertical   = "|"
@@ -40,7 +30,7 @@ func NewSubsequent(character, direction string, repetitions int) *subsequent {
 }
 
 func main() {
-	breakInPaths(tests)
+	initialize()
 }
 
 func findConsecutiveStrings(dir string, path []string) (map[string]int, string, int) {
@@ -106,4 +96,32 @@ func breakInPaths(data [][]string) {
 	}
 
 	fmt.Printf("Los caracteres consecuentes más repetidos son: %s, en un número de %d repeticiones y en sentido %s\n", maxSubsequent.character, maxSubsequent.repetitions, maxSubsequent.direction)
+}
+
+func initialize() {
+	var n int
+	fmt.Print("Ingrese el tamaño de la matriz cuadrada: ")
+	fmt.Scan(&n)
+
+	matriz := make([][]string, n)
+	for i := range matriz {
+		matriz[i] = make([]string, n)
+	}
+
+	fmt.Println("Ingrese los elementos de la matriz:")
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			fmt.Printf("Elemento [%d][%d]: ", i, j)
+			fmt.Scan(&matriz[i][j])
+		}
+	}
+
+	fmt.Println("Matriz ingresada:")
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			fmt.Printf("%s\t", matriz[i][j])
+		}
+		fmt.Println()
+	}
+	breakInPaths(matriz)
 }
